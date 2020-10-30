@@ -1,23 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
+import React, {useState} from 'react'
+import styled from 'styled-components';
+
+import ColorForm from './components/color_form/color_form.js'
+import Boxes from './components/boxes/boxes.js'
+import StyledBox from './components/styleboxes/styledbox.js';
+
 
 function App() {
+
+  const [boxes, setBoxes] = useState([])
+
+  const addToColorList = (color) => {
+    console.log('color function2: ', color)
+    setBoxes(boxes => {
+      const boxList = boxes.concat(color)
+      return boxList
+    })
+  }
+
+  console.log('boxes state: ', boxes)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Box Generator</h1>
+      <ColorForm addToColorList={addToColorList}/>
+      <Boxes boxes={boxes}/>
     </div>
   );
 }
